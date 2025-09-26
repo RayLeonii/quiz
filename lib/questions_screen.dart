@@ -30,6 +30,22 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     });
   }
 
+  void goBackBut() {
+    setState(() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+      }
+    });
+  }
+
+  void goNextBut() {
+    setState(() {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+      }
+    });
+  }
+
   @override
   Widget build(context) {
     final currentQuestion = questions[currentQuestionIndex];
@@ -59,7 +75,34 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   answerQuestion(answer);
                 },
               );
-            })
+            }),
+            const SizedBox(
+              height: 40,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if(currentQuestionIndex > 0)
+                  IconButton(
+                    onPressed: goBackBut,
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                    iconSize: 32,
+                  )
+                else 
+                  const SizedBox(height: 48,),
+
+                if(currentQuestionIndex < questions.length -1)
+                  IconButton(
+                    onPressed: goNextBut,
+                    icon: const Icon(Icons.arrow_forward),
+                    color: Colors.white,
+                    iconSize: 32,
+                  )
+                else
+                  const SizedBox(height: 48,),
+              ],
+            ),
           ],
         ),
       ),
